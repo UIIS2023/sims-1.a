@@ -1,0 +1,149 @@
+﻿<Page x:Class="InitialProject.WPF.Views.OwnerViews.LocationSuggestionsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.WPF.Views.OwnerViews"
+      mc:Ignorable="d" 
+     d:DesignHeight="630" d:DesignWidth="430"
+      Title="Suggestions" Background="#b3cee5">
+
+    <Page.Resources>
+        <DataTemplate x:Key="leastPopularLocation">
+            <Border Background="LightGray" BorderBrush="DarkGray" BorderThickness="0.5" Margin="0,0,0,0" >
+                <Grid Margin="0, 0, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="15" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.RowSpan="2" Text="{Binding Path=Accommodation.Name}" Grid.Column="0" Margin="10, 2, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1" Margin="2, 2, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Run Text="Location: " />
+                        <Run Text="{Binding Path= Accommodation.Location.City}" FontWeight="SemiBold" FontSize="15"/>
+                        <Run Text=", "/>
+                        <Run Text="{Binding Path=Accommodation.Location.Country}" FontWeight="SemiBold" FontSize="15"/>
+                    </TextBlock>
+                    <Button Grid.Row="0" Grid.RowSpan="2" Command="{Binding Path=DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Name="RemoveButton" Content="Remove" Width="50"  Grid.Column="2"  Height="20" HorizontalContentAlignment="Center" Style="{StaticResource DataTemplateButton}" Margin="0, 0, 2,0"></Button>
+                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="10" VerticalAlignment="Bottom" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsLeastPopular}" Value="True">
+                                        <Setter Property="Text" Value="(based on statistics)"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsBasedOnReservationNumber}" Value="True">
+                                        <Setter Property="Text" Value="(based on reservation number)"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsBasedOnBusinest}" Value="True">
+                                        <Setter Property="Text" Value="(based on businest)"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="mostPopularLocation">
+            <Border Background="LightGray" BorderBrush="DarkGray" BorderThickness="0.5" Margin="0,0,0,0" >
+                <Grid Margin="0, 0, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="15" />
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Grid.RowSpan="2" Source="/Resources/Images/medal.png" Margin="5, 0, 0, 0" Height="40" Width="40" Grid.Column="0" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1" Margin="0, 0, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Run Text="Location: " />
+                        <Run Text="{Binding Path=Location.City}" FontWeight="SemiBold" FontSize="15"/>
+                        <Run Text=", "/>
+                        <Run Text="{Binding Path=Location.Country}" FontWeight="SemiBold" FontSize="15"/>
+                    </TextBlock>
+                    <Button Grid.Row="0" Grid.RowSpan="2" Command="{Binding Path=DataContext.NewAccommodationCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Name="AddButton" Content="Add" Width="50" Grid.Column="2"  Height="20" HorizontalContentAlignment="Center" Style="{StaticResource DataTemplateButton}" Margin="10, 0, 2 ,0"></Button>
+                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="10" VerticalAlignment="Bottom" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMostPopular}" Value="True">
+                                        <Setter Property="Text" Value="(based on statistics)"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsBasedOnReservationNumber}" Value="True">
+                                        <Setter Property="Text" Value="(based on reservation number)"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsBasedOnBusinest}" Value="True">
+                                        <Setter Property="Text" Value="(based on businest)"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+        </DataTemplate>
+    </Page.Resources>
+
+
+
+    <Grid Margin="30, 0, 30, 0">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="3*"/>
+            <RowDefinition />
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Most popular locations" FontSize="15" Grid.Row="0" VerticalContentAlignment="Bottom"/>
+        <ListBox Grid.Row="1"  Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding Path=MostPopularLocations}" ItemTemplate="{StaticResource mostPopularLocation}" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding SelectedLocation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectionMode="Single" HorizontalContentAlignment="Stretch">
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+        <Label Content="Your accommodation in least popular locations" FontSize="15" Grid.Row="2" VerticalContentAlignment="Bottom"/>
+        <ListBox Style="{StaticResource ListBoxStyle}" Grid.Row="3" ItemsSource="{Binding Path=LeastPopularAccommodations}" ItemTemplate="{StaticResource leastPopularLocation}" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectionMode="Single" HorizontalContentAlignment="Stretch">
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="4">
+            <Image Source="/Resources/Images/suggestion.jpg" Width="150" Height="150" Stretch="Fill" />
+            <Border CornerRadius="5, 5, 5, 5" BorderThickness="1" Margin="5, 0, 0, 0" Height="150" Width="200">
+                <Border.BorderBrush>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Rectangle StrokeDashArray="4 2" Stroke="Gray" StrokeThickness="1"
+                  Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"
+                  Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.BorderBrush>
+                <TextBlock TextWrapping="Wrap" Padding="10,10,10,10" Text="Based on statistics, system suggests you to consider new locations.&#xA;Remove accommodation from least popular locations." Margin="0,0,-4,0"/>
+            </Border>
+        </StackPanel>
+
+    </Grid>
+</Page>

@@ -1,0 +1,174 @@
+﻿<Page x:Class="InitialProject.WPF.Views.GuideViews.HomeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.WPF.Views.GuideViews"
+      xmlns:ns="clr-namespace:InitialProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="707" d:DesignWidth="1100"
+      Title="HomeView" >
+    <Grid Margin="0,0,0,-6" Style="{DynamicResource Background}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="8.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <DataGrid Style="{DynamicResource Tables}"  ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" Grid.Column="3" Grid.Row="3" Grid.RowSpan="10" VerticalScrollBarVisibility="Auto" HeadersVisibility="Column" ItemsSource="{Binding Path=Tours,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=Selected}"  HorizontalAlignment="Left">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Width="*" >
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Image Source="{Binding CoverBitmap}" Height="30" VerticalAlignment="Top" Stretch="Uniform"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Tour.Name}" Width="1.3*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Duration}" Binding="{Binding Tour.Duration}" Width="*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Location}" Binding="{Binding Tour.Location}" Width="1.4*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Capacity}" Binding="{Binding Tour.MaxGuests}" Width="0.9*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc StartDate}" Binding="{Binding StartDate}" Width="1.7*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Language}" Binding="{Binding Tour.Language}" Width="*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn x:Name="cancelation"  Width="*" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="cancelButton" Style="{DynamicResource ButtonTable}" Content="{ns:Loc START}" TextElement.FontWeight="ExtraBold" Command="{Binding Path=DataContext.StartCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Content="{ns:Loc Todays}" Style="{DynamicResource Label}" Grid.Column="2" Grid.Row="2" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Width="295" FontWeight="DemiBold" Grid.ColumnSpan="2" Margin="28,8,0,0"/>
+        <Calendar Style="{DynamicResource Calendar}" Grid.Column="1"  Grid.Row="7" Grid.RowSpan="4" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="216" Width="218"/>
+
+        <Grid Grid.Row="0" Grid.RowSpan="15" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource InnerGrid}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" Style="{DynamicResource InerInerGrid}">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition>
+
+                    </RowDefinition>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.RowSpan="3" Grid.Row="0" Style="{DynamicResource Border}"></Border>
+                <Label Style="{DynamicResource StatisticLabel}" Grid.Row="0" HorizontalAlignment="Center" Content="🔔" FontSize="25"/>
+                <Label Content="{ns:Loc NewReviews}" HorizontalAlignment="Left" Grid.Row="1" Width="150" Style="{DynamicResource StatisticLabel}" Margin="37,0,0,0"/>
+                <Label Content="{ns:Loc NewRequests}" Grid.Row="1" Width="150" Style="{DynamicResource StatisticLabel }" HorizontalAlignment="Left" Margin="37,41,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <TextBlock Grid.Row="1" HorizontalAlignment="Left" FontSize="16" Width="30" VerticalAlignment="Top" Margin="172,11,0,0">
+                    <Hyperlink Command="{Binding DataContext.ViewReview, RelativeSource={RelativeSource AncestorType={x:Type local:HomeView}}}">
+                    <Run Text="{Binding Path= ReviewCount, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource Run1}"/>
+                </Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Row="2" HorizontalAlignment="Left" FontSize="16" Width="30" VerticalAlignment="Top" Margin="172,1,0,0">
+                    <Hyperlink Command="{Binding DataContext.ViewRequest, RelativeSource={RelativeSource AncestorType={x:Type local:HomeView}}}">
+                    <Run Text="{Binding Path= RequestCount, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource Run1}" />
+                </Hyperlink>
+                </TextBlock>
+            </Grid>
+            <Calendar Style="{DynamicResource Calendar1}"  Grid.Row="8" Grid.RowSpan="6" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="216" Width="218" Grid.ColumnSpan="2" Margin="18,24,0,0"/>
+            <Label Content="{Binding Clock,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Column="1" Grid.RowSpan="2" Grid.Row="7" Height="55"   VerticalAlignment="Top" Width="160" Style="{DynamicResource Header}" Margin="39,0,0,0" />
+            <Label Content="GMT+1  🕘" Style="{DynamicResource Label}" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5"  VerticalAlignment="Top" Height="38" Width="172" FontSize="21" RenderTransformOrigin="0.555,0.85" Margin="46,47,0,0" Grid.RowSpan="2"/>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="2" Style="{DynamicResource BackgroundHeader }">
+
+            <Image HorizontalAlignment="Left"  VerticalAlignment="Center"  Source="/Resources/Images/LOGO (2).jpg" Width="253" Height="120" Margin="43,0,0,0"   />
+            <Label Content="{ns:Loc HomePage}" Style="{DynamicResource Header}"   VerticalAlignment="Center"  />
+
+        </Grid>
+    </Grid>
+
+</Page>

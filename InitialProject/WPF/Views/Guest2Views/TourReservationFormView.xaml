@@ -1,0 +1,326 @@
+﻿<Window x:Class="InitialProject.WPF.Views.Guest2Views.TourReservationFormView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:val="clr-namespace:InitialProject.WPF.Validations.Guest2Validations"
+        xmlns:properties="clr-namespace:InitialProject.Properties"
+        xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Royale" xmlns:System="clr-namespace:System;assembly=netstandard" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:InitialProject.View"
+        xmlns:l="clr-namespace:InitialProject.Help"
+        mc:Ignorable="d"
+        Loaded="Page_Loaded"
+        Title="TourReservationForm" Height="650" Width="668" d:DesignHeight="650" d:DesignWidth="668" Padding="0" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding HelpCommandInViewModel}" />
+    </Window.InputBindings>
+    <Window.Resources>
+        <Style x:Key="DataGridRowStyle2" TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRow}">
+                        <Border x:Name="DGR_Border"  Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Margin="0 10 0 10" SnapsToDevicePixels="True">
+                            <SelectiveScrollingGrid>
+                                <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Visibility="{TemplateBinding DetailsVisibility}"/>
+                                <DataGridRowHeader Grid.RowSpan="2" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                            </SelectiveScrollingGrid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+        <Style x:Key="DataGridCellStyle2" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#555557"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Border Padding="25, 0, 0, 0" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static DataGrid.FocusBorderBrushKey}}"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected" Value="true"/>
+                        <Condition Property="Selector.IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </MultiTrigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="DataGridColumnHeaderStyle2" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Margin" Value="0, 0, 0, 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                        <Grid Margin="0,0,0,8">
+                            <theme:DataGridHeaderBorder Background="White" BorderThickness="0 0 0 5" IsPressed="{TemplateBinding IsPressed}" IsHovered="{TemplateBinding IsMouseOver}" IsClickable="{TemplateBinding CanUserSort}" Padding="25 0 0 10" SortDirection="{TemplateBinding SortDirection}" SeparatorVisibility="{TemplateBinding SeparatorVisibility}" SeparatorBrush="{TemplateBinding SeparatorBrush}">
+                                <ContentPresenter HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </theme:DataGridHeaderBorder>
+                            <Border BorderBrush="LightGray" BorderThickness="0,0,0,2" Margin="0,0,0,2"/>
+
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="button" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="#FF9E98FF"/>
+            <Setter Property="Height" Value="54"/>
+            <Setter Property="Width" Value="95"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" BorderThickness="1" BorderBrush="White" Background="White" Padding="15" Margin="0,4,0,0">
+                            <ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="DimGray"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+                <Trigger Property="IsMouseCaptured" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="DimGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Border BorderThickness="4" Padding="6" CornerRadius="25" BorderBrush="White" Background="White">
+        <Grid Margin="-9,-9,-9,-9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border BorderBrush="LightGray" BorderThickness="0 0 0 1" Grid.ColumnSpan="2" Margin="10,0,12,21" Grid.Column="1"/>
+
+            <TextBox x:Name="capacityNumber" Background="#FFEDEDED" BorderBrush="#FFCAC1C1" BorderThickness="0 0 0 3" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top" Width="104" TextAlignment="Center" Height="20" Margin="280,4,0,0">
+                <TextBox.Text>
+                    <Binding Path="Capacity" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <val:StringToIntValidation ValidatesOnTargetUpdated="True" ValidationStep="RawProposedValue"></val:StringToIntValidation>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Button Background="#FFEDEDED" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" TextElement.FontWeight="Bold" Margin="232,5,0,0" VerticalAlignment="Top" Width="31" Command="{Binding Guests_Decrement_Command}" RenderTransformOrigin="0.596,1.286" Height="19" BorderBrush="#FFCAC1C1" BorderThickness="0,0,0,3" Content="-"/>
+            <Button Background="#FFEDEDED" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" TextElement.FontWeight="Bold" Margin="401,5,0,0" VerticalAlignment="Top" Width="31" Command="{Binding Guests_Increment_Command}" RenderTransformOrigin="7.062,-0.088" Height="19" BorderBrush="#FFCAC1C1" BorderThickness="0,0,0,3" Content="+"/>
+            <Label Content="RESERVATION FORM"  Grid.Column="1"  FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,-20,0,0" VerticalAlignment="Center" Width="436" Grid.ColumnSpan="2" Height="51"/>
+            <Label Content="Name: " Grid.Column="1" FontSize="15" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="106" Grid.ColumnSpan="2" FontWeight="DemiBold" Grid.RowSpan="2"/>
+            <Label Content="Average of years: "  FontSize="15" FontWeight="DemiBold" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="140" Grid.ColumnSpan="2" Height="40" RenderTransformOrigin="0.5,0.5"/>
+            <Label Content="Number of guests: "  FontSize="15" FontWeight="DemiBold" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="140" Grid.ColumnSpan="2" Height="53" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3"/>
+
+            <TextBlock Grid.Column="2" FontSize="15" Foreground="Black" Margin="232,2,74,12" Text="{Binding Path=guest2.Name}" FontWeight="DemiBold" Grid.ColumnSpan="2" Grid.Row="1"/>
+
+
+
+            <TextBox x:Name="ageInput" Background="#FFEDEDED" BorderBrush="#FFCAC1C1" BorderThickness="0,0,0,3"  Margin="232,37,0,0"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="20" Grid.RowSpan="2">
+                <TextBox.Text>
+                    <Binding Path="Age" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <val:StringToDoubleValidation ValidatesOnTargetUpdated="True" ValidationStep="RawProposedValue"></val:StringToDoubleValidation>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Rectangle Fill="White" RadiusX="10" RadiusY="10" Grid.Row="6" Margin="15,7,12,4" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <DataGrid x:Name="ActivationVoucherDataGrid" Background="#FFEDEDED" BorderBrush="Transparent" Grid.Row="6" ItemsSource="{Binding Path=Vouchers,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=Selected}" IsReadOnly="True" AutoGenerateColumns="False" Margin="15,10,12,10" Grid.Column="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Hidden" GridLinesVisibility="None" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle2}" CellStyle="{StaticResource DataGridCellStyle2}" Style="{StaticResource DataGridStyle}" RowStyle="{StaticResource DataGridRowStyle2}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Voucher" Width="1*" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Valid" Width="1*" Binding="{Binding CreateDate}"/>
+                    <DataGridTemplateColumn x:Name="reservation" Header="Activation"  Width="1.2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button FontWeight="Bold" Width="85" Height="30" Background="#ffba00" HorizontalAlignment="Left" FontSize="18" Command="{Binding Path=DataContext.ActivateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" ToolTipService.ShowDuration="5000" ToolTipService.IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=IsToolTipEnabled}">
+                                    <Grid Background="#ffba00" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="16*"/>
+                                            <RowDefinition Height="19*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="/Resources/Images/back.png" VerticalAlignment="Top" HorizontalAlignment="Left" Width="15" Height="25" RenderTransformOrigin="0.5,0.5" Margin="3,3,0,0" Grid.RowSpan="2">
+                                            <Image.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform Angle="180"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </Image.RenderTransform>
+                                        </Image>
+                                        <TextBlock Background="#ffba00" Text="Activate" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" HorizontalAlignment="Left" Width="85" Height="30" Margin="3,3,0,0" Grid.RowSpan="2" Grid.Column="1"/>
+                                    </Grid>
+                                    <Button.ToolTip>
+                                        <ToolTip>
+                                            <StackPanel>
+                                                <TextBlock FontWeight="Bold">Voucher will be activated for this tour reservation.</TextBlock>
+                                            </StackPanel>
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Last Name: " Grid.Row="1" FontSize="15"  FontWeight="DemiBold" Grid.Column="1" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="106" Grid.ColumnSpan="2" Height="39" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
+            <TextBlock Grid.Row="1" FontSize="15" Foreground="Black" Grid.Column="2" Margin="232,37,0,15" Text="{Binding guest2.LastName}" FontWeight="DemiBold" Grid.RowSpan="2"/>
+            <Label x:Name="AgeLabel" Grid.Row="1" Grid.Column="2" Margin="302,233,191,58"/>
+            <TextBlock  HorizontalAlignment="Left" TextElement.FontSize="20" Margin="15,20,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="3" Width="530" FontWeight="Bold" Height="29"><Run Text="Vouchers"/></TextBlock>
+            <Button Grid.Row="7" HorizontalAlignment="Left" BorderBrush="#ffba00" BorderThickness="1" Background="#ffba00" VerticalAlignment="Top" Height="35" Width="101" FontWeight="Bold" Margin="202,27,0,0" FontSize="18" Grid.Column="2" Command="{Binding ConfirmCommand}" ToolTipService.ShowDuration="5000" ToolTipService.IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=IsToolTipEnabled}">
+                <Grid Background="#ffba00" Width="99" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Resources/Images/doneNew.png" VerticalAlignment="Top" HorizontalAlignment="Center" Width="24" Height="20" RenderTransformOrigin="0.5,0.5" Margin="0,5,0,0"/>
+                    <TextBlock Background="#ffba00" Text="Reserve" VerticalAlignment="Center" FontSize="18" Grid.Column="1"  Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" Width="68" Height="28"/>
+                </Grid>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="false"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=ageInput, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Reserving tour</TextBlock>
+                            <TextBlock>This tour will be reserved.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Button Grid.Row="7" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="35" Width="101" FontWeight="Bold" Margin="331,27,0,0" FontSize="18" Grid.Column="2" Command="{Binding CloseCommand}" ToolTipService.ShowDuration="5000" ToolTipService.IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=IsToolTipEnabled}">
+                <Grid Background="White" Width="99" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Resources/Images/close.png" VerticalAlignment="Top" HorizontalAlignment="Center" Width="24" Height="20" RenderTransformOrigin="0.5,0.5" Margin="0,5,0,0"/>
+                    <TextBlock Background="White" Text="Cancel" VerticalAlignment="Center" FontSize="18" Grid.Column="1"  Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" Width="68" Height="28"/>
+                </Grid>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Exiting the booking form</TextBlock>
+                            <TextBlock>This tour won't be reserved.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Border Grid.Row="5" BorderBrush="LightGray" BorderThickness="0 0 0 1" Margin="10,0,12,54" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <TextBlock HorizontalAlignment="Left" TextElement.FontSize="15" Margin="15,69,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="3" Width="530" FontWeight="Bold" Height="29"><Run Text="Here are all the vouchers that you can use for your reservation."/></TextBlock>
+        </Grid>
+    </Border>
+</Window>

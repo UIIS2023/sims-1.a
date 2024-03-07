@@ -1,0 +1,146 @@
+﻿<Window x:Class="InitialProject.WPF.Views.Guest2Views.TourDetailsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:InitialProject.Properties"
+        xmlns:local="clr-namespace:InitialProject.View"
+        xmlns:l="clr-namespace:InitialProject.Help"
+        mc:Ignorable="d"
+        Loaded="Page_Loaded"
+        Title="TourDetails" Height="650" Width="750" d:Height="650" d:Width="750" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Focusable="True">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding HelpCommandInViewModel}" />
+    </Window.InputBindings>
+    <Window.Resources>
+        <Style x:Key="button" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="#FF9E98FF"/>
+            <Setter Property="Height" Value="54"/>
+            <Setter Property="Width" Value="95"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" BorderThickness="1" BorderBrush="White" Background="White" Padding="15" Margin="0,4,0,0">
+                            <ContentPresenter HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="DimGray"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+                <Trigger Property="IsMouseCaptured" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="DimGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Window.Resources>
+
+
+    <Border BorderThickness="4" Padding="6" CornerRadius="25" BorderBrush="White" Background="White" >
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Image x:Name="tourImage" Stretch="Fill"  Source="{Binding ImageSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Grid.Column="0" Width="301" Margin="28,154,0,272"/>
+            <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top"  Height="34" Width="34" FontWeight="Bold" FontSize="18" Command="{Binding PreviousPhotoCommand}" Margin="0,255,0,0">
+                <Grid Background="Transparent" Width="34" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Resources/Images/back_arrow.png" VerticalAlignment="Top" HorizontalAlignment="Left" Width="31" Height="34" RenderTransformOrigin="0.5,0.5" Margin="3,-1,0,0"/>
+
+                </Grid>
+
+            </Button>
+            <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top"  Height="34" Width="34" FontWeight="Bold" FontSize="18" Command="{Binding NextPhotoCommand}" Margin="317,255,0,0" Grid.ColumnSpan="2">
+                <Grid Background="Transparent" Width="34" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Resources/Images/arrow.png" VerticalAlignment="Top" HorizontalAlignment="Center" Width="29" Height="34" RenderTransformOrigin="0.5,0.5" Margin="0,-1,0,0"/>
+
+                </Grid>
+
+            </Button>
+
+            <Label Content="Description:" Margin="28,415,0,0" RenderTransformOrigin="0.044,0.541" Style="{StaticResource LabelStyle}"/>
+            <Label Content="Photos" Margin="28,97,0,0" Style="{StaticResource LabelStyle}"/>
+            <Label Content="DETAILS" FontWeight="Bold" FontSize="30" Margin="28,15,0,0" Style="{StaticResource LabelStyle}" Width="172"/>
+            <TextBlock HorizontalAlignment="Left" Margin="32,450,0,0" FontSize="20" FontWeight="DemiBold" TextWrapping="Wrap" VerticalAlignment="Top" Height="159" Width="292" Text="{Binding Path=Selected.Tour.Description,UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Location:" Margin="48,97,0,0" Grid.Column="1" Width="95" Style="{StaticResource LabelStyle}"/>
+            <Label Content="Duration:" Margin="48,176,0,0" Grid.Column="1" Width="119" Style="{StaticResource LabelStyle}"/>
+            <Label Content="Language:" Margin="48,256,0,0" Grid.Column="1" Width="119" Style="{StaticResource LabelStyle}"/>
+            <Label Content="Capacity:" Margin="48,415,0,0" Grid.Column="1" Width="95" Height="52" Style="{StaticResource LabelStyle}"/>
+            <TextBlock Margin="158,102,10,495"  FontSize="20" FontWeight="DemiBold" RenderTransformOrigin="0.5,0.5" Text="{Binding Path=Selected.Tour.Location,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+            <TextBlock Margin="158,182,10,415" FontSize="20" FontWeight="DemiBold" RenderTransformOrigin="0.5,0.5" Text="{Binding Path=Selected.Tour.Duration,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+            <TextBlock Margin="158,261,10,335" FontSize="20" FontWeight="DemiBold" RenderTransformOrigin="0.5,0.5" Text="{Binding Path=Selected.Tour.Language,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+            <TextBlock Margin="158,420,10,173" FontSize="20" FontWeight="DemiBold" RenderTransformOrigin="0.5,0.5" Text="{Binding Path=Selected.Tour.MaxGuests,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-0.659"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-0.489"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" Height="34" Width="132" FontWeight="Bold" Margin="228,583,0,0" FontSize="18" Grid.Column="1" Command="{Binding CancelCommand}" ToolTipService.ShowDuration="5000" ToolTipService.IsEnabled="{Binding Source={x:Static properties:Settings.Default}, Path=IsToolTipEnabled}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+                </Button.Style>
+                <Grid Width="90" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16*"/>
+                        <RowDefinition Height="19*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Resources/Images/close.png" VerticalAlignment="Top" HorizontalAlignment="Left" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" Margin="0,6,0,0" Grid.RowSpan="2"/>
+                    <TextBlock Foreground="Black" Text="Close" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Width="68" Height="28" Margin="25,2,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                </Grid>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold">Exit the tour details window.</TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+            <Label Content="Start date:" Margin="48,336,0,0" Grid.Column="1" Width="119" Height="52" Style="{StaticResource LabelStyle}"/>
+            <TextBlock Margin="158,340,0,251" FontSize="20" FontWeight="DemiBold" RenderTransformOrigin="0.5,0.5" Text="{Binding Selected.StartDate, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+
+
+        </Grid>
+    </Border>
+</Window>

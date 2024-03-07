@@ -1,0 +1,116 @@
+﻿<Page x:Class="InitialProject.WPF.Views.GuideViews.StartedTourInstanceView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:ns="clr-namespace:InitialProject"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InitialProject.WPF.Views.GuideViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="707" d:DesignWidth="1100"
+      Title="StartedTourInstanceView" Background="White">
+
+    <Grid Style="{DynamicResource Background}">
+        <Label Margin="94,0,0,543" Visibility="Visible" Style="{DynamicResource StatisticLabel }" VerticalAlignment="Bottom" Content="{ns:Loc ListOfCheckpointsForChosenTour}" HorizontalAlignment="Left">
+
+        </Label>
+        <DataGrid ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" HeadersVisibility="Column" ItemsSource="{Binding Path=AllPoints,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource Tables}" Margin="94,144,550,264">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Name}" Width="1*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Order}" Binding="{Binding Order}" Width="1*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Checked}" Binding="{Binding Check}" Width="1*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label  Width="200" Margin="94,464,0,0" Style="{DynamicResource StatisticLabel}" Content="{ns:Loc CurrentCheckPoint}" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+        <DataGrid ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" HeadersVisibility="Column" Margin="94,500,0,127" ItemsSource="{Binding Path=CurrentPoint,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource Tables}" HorizontalAlignment="Left" Width="456" RenderTransformOrigin="0.5,0.5">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Name}" Width="1*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Order}" Binding="{Binding Order}" Width="1*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{ns:Loc Checked}" Binding="{Binding Check}" Width="1*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="Finish"  Style="{DynamicResource Button}" Command="{Binding FinishCommand}" Margin="774,324,98,299" IsEnabled="{Binding FinishEnabled}" Content="{ns:Loc FINISHTOUR}"></Button>
+
+        <Button x:Name="Next"  Command="{Binding NextCommand}" Margin="567,500,416,118" IsEnabled="{Binding NextEnabled}" Style="{DynamicResource Button}" >
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Width="30" Height="14" Style="{DynamicResource Rectangle1}"/>
+                            <Polygon Points= "0,15 15,22 0,30" Style="{DynamicResource Polygon1}" Height="45" Width="35" />
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter  Property="Cursor" Value="Hand" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <StackPanel x:Name="FinishMessage" Margin="750,557,0,0" Style="{DynamicResource ResourceKey=Toast}" Visibility="{Binding Toast}">
+            <Label Height="42" FontSize="20" FontWeight="Heavy" Style="{StaticResource LabelToast}" HorizontalAlignment="Center" Content="{ns:Loc ThisTourIsFinished}"></Label>
+            <Button Style="{DynamicResource ButtonToast}"  Command="NavigationCommands.BrowseBack" Content="OK"/>
+        </StackPanel>
+        <Rectangle HorizontalAlignment="Left" Height="467" Margin="699,122,0,0" Style="{DynamicResource Rectangle}" />
+        <Label HorizontalAlignment="Left" Margin="780,168,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="47" Width="241" Style="{DynamicResource StatisticLabel}" Content="{ns:Loc PressFINISHTOUR}" FontWeight="Heavy">
+
+        </Label>
+
+        <Grid Style="{DynamicResource BackgroundHeader}" Margin="0,0,0,608">
+            <Label Content="{Binding Title}" Style="{DynamicResource Header}"  VerticalAlignment="Center" Width="516" Height="52" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Image Source="/Resources/Images/LOGO (2).jpg" Margin="0,0,908,0"/>
+        </Grid>
+        <Label Content="{ns:Loc ifYouWantToFinishTour}" Style="{DynamicResource StatisticLabel}" FontWeight="Heavy" HorizontalAlignment="Left" Margin="780,210,0,0" VerticalAlignment="Top" Width="241" Height="43"/>
+        <Label Content="{ns:Loc BeforeRegularEnd}" Style="{DynamicResource StatisticLabel}" HorizontalAlignment="Left" FontWeight="Heavy" Margin="780,253,0,0" VerticalAlignment="Top" Width="241" Height="46"/>
+    </Grid>
+</Page>
